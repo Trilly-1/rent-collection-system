@@ -1,83 +1,66 @@
-import { Outlet } from 'react-router-dom';
-import { Receipt, ShieldCheck, TrendingUp, Building2 } from 'lucide-react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Receipt, ArrowLeft, Home } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const navLinks = [
+  { to: '/', label: 'Home', icon: Home },
+  { to: '/login', label: 'Sign In' },
+  { to: '/landlord-register', label: 'Get Started' },
+];
+
 export default function AuthLayout() {
+  const location = useLocation();
+
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_rgba(230,173,46,0.1),_transparent_50%),linear-gradient(180deg,_#fdfcf8_0%,_#f7f5ef_100%)]">
-      <div className="mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 py-10 sm:px-6 lg:px-8">
-        <div className="flex flex-col overflow-hidden rounded-3xl border border-line-200 bg-white/90 shadow-2xl lg:flex-row">
-          {/* Left Panel */}
-          <div className="flex flex-col justify-between bg-gradient-to-br from-ink-900 to-ink-800 p-8 sm:p-10 lg:w-[44%] lg:p-12">
+      {/* Navbar */}
+      <header className="sticky top-0 z-50 border-b border-line-200 bg-paper-0/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-3 cursor-pointer">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden shadow-lg">
+              <img src="/images/img2.jpeg" alt="RentFlow Logo" className="h-full w-full object-cover" />
+            </div>
             <div>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-3"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-400 shadow-lg">
-                  <Receipt className="h-6 w-6 text-ink-900" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-[0.3em] text-gold-400">RentFlow</p>
-                  <p className="text-xs text-ink-300">Professional property management</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="mt-12 max-w-md"
-              >
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-gold-400">Welcome</p>
-                <h1 className="mt-3 font-display text-4xl font-bold leading-tight text-white sm:text-5xl">
-                  Manage your rental workspace.
-                </h1>
-                <p className="mt-4 text-lg leading-relaxed text-ink-300">
-                  Access properties, payments, and tenant records in a calm, professional environment.
-                </p>
-              </motion.div>
+              <p className="font-display text-lg font-bold text-ink-950">RentFlow</p>
+              <p className="text-[10px] text-ink-600 uppercase tracking-wider">Property Management</p>
             </div>
+          </Link>
 
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-6"
+          {/* Nav Links */}
+          <nav className="hidden md:flex items-center gap-6">
+            {navLinks.map(({ to, label }) => (
+              <Link
+                key={to}
+                to={to}
+                className={`relative py-1 text-sm font-medium transition-colors duration-200 cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gold-500 after:transition-all after:duration-300 hover:after:w-full ${
+                  location.pathname === to
+                    ? 'text-gold-600 after:w-full'
+                    : 'text-ink-700 hover:text-ink-950'
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA */}
+          <div className="flex items-center gap-3">
+            <Link
+              to="/"
+              className="flex items-center gap-2 rounded-xl border border-line-200 bg-white px-4 py-2 text-sm font-semibold text-ink-700 shadow-sm transition-all duration-200 hover:border-gold-300 hover:text-ink-900 cursor-pointer"
             >
-              <p className="font-semibold text-white">What you can manage</p>
-              <ul className="mt-4 space-y-3">
-                <li className="flex items-center gap-3 text-ink-200">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gold-400/20">
-                    <Building2 className="h-3.5 w-3.5 text-gold-400" />
-                  </div>
-                  Houses, rooms, and unit records
-                </li>
-                <li className="flex items-center gap-3 text-ink-200">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gold-400/20">
-                    <TrendingUp className="h-3.5 w-3.5 text-gold-400" />
-                  </div>
-                  Tenant activity and rent payments
-                </li>
-                <li className="flex items-center gap-3 text-ink-200">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gold-400/20">
-                    <ShieldCheck className="h-3.5 w-3.5 text-gold-400" />
-                  </div>
-                  Clear reporting and portfolio visibility
-                </li>
-              </ul>
-            </motion.div>
-          </div>
-
-          {/* Right Panel - Form */}
-          <div className="flex flex-1 items-center justify-center p-6 sm:p-8 lg:p-10">
-            <div className="w-full max-w-sm">
-              <Outlet />
-            </div>
+              <ArrowLeft className="h-4 w-4" />
+              <span className="hidden sm:inline">Back to Home</span>
+            </Link>
           </div>
         </div>
-      </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <Outlet />
+      </main>
     </div>
   );
 }

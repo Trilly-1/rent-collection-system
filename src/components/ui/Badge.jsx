@@ -1,20 +1,27 @@
-import { motion } from 'framer-motion';
 import { classNames } from '../../utils/helpers.js';
 
+/*
+ * UX Pro Max Badge Guidelines Applied:
+ * - Color is not the only indicator (uses dot + text)
+ * - Sufficient contrast for text
+ * - Consistent sizing
+ * - Accessible to screen readers
+ */
+
 const toneStyles = {
-  success: 'border-green-300 text-green-700 bg-green-50',
-  warning: 'border-gold-300 text-gold-700 bg-gold-50',
-  danger: 'border-clay-300 text-clay-700 bg-clay-50',
+  success: 'border-success-200 text-success-700 bg-success-50',
+  warning: 'border-gold-200 text-gold-700 bg-gold-50',
+  danger: 'border-clay-200 text-clay-700 bg-clay-50',
   neutral: 'border-line-300 text-ink-700 bg-paper-100',
-  info: 'border-ink-300 text-ink-800 bg-paper-100',
+  info: 'border-primary-200 text-primary-700 bg-primary-50',
 };
 
 const dotColors = {
-  success: 'bg-green-500',
+  success: 'bg-success-500',
   warning: 'bg-gold-500',
   danger: 'bg-clay-500',
-  neutral: 'bg-ink-700',
-  info: 'bg-ink-700',
+  neutral: 'bg-ink-500',
+  info: 'bg-primary-500',
 };
 
 const statusToneMap = {
@@ -36,12 +43,16 @@ export default function Badge({ children, tone, status, className = '' }) {
   return (
     <span
       className={classNames(
-        'stamp inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-wide',
+        'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold',
         toneStyles[resolvedTone],
         className
       )}
+      role="status"
     >
-      <span className={classNames('h-1.5 w-1.5 rounded-full', dotColors[resolvedTone])} />
+      <span 
+        className={classNames('h-1.5 w-1.5 rounded-full', dotColors[resolvedTone])} 
+        aria-hidden="true"
+      />
       {children ?? status}
     </span>
   );

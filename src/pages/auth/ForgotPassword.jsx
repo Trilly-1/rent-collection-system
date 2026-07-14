@@ -34,7 +34,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-xl rounded-[32px] border border-line-200 bg-white p-6 shadow-[0_25px_80px_-35px_rgba(12,32,24,0.35)] sm:p-8 lg:p-10">
+    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="w-full rounded-3xl border border-line-200 bg-white p-6 shadow-2xl sm:p-8">
       <div className="mb-6 flex flex-col items-center text-center">
         <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-ink-900 text-gold-400">
           <Receipt className="h-5 w-5" />

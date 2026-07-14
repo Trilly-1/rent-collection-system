@@ -1,8 +1,9 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import { 
   ArrowRight, BarChart3, Building2, Camera, Check, CheckCircle, 
   CreditCard, Eye, FileText, Globe, Home, Lock, Receipt, 
-  ShieldCheck, Sparkles, Star, Users, Zap 
+  ShieldCheck, Sparkles, Star, Users, Zap, Quote
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/buttons/Button.jsx';
@@ -62,164 +63,183 @@ const features = [
   { icon: Zap, title: 'Instant Notifications', description: 'Get real-time alerts for payments, overdue balances, and tenant activity.' },
 ];
 
+const testimonials = [
+  {
+    name: 'Sarah Nakamya',
+    role: 'Landlord, Kampala',
+    content: 'RentFlow transformed how I manage my 12 properties. The photo listings alone have reduced vacant days by 40%.',
+    rating: 5,
+  },
+  {
+    name: 'James Okello',
+    role: 'Tenant, Entebbe',
+    content: 'Finally a tenant portal that actually works! I can see all my payment history and download receipts instantly.',
+    rating: 5,
+  },
+  {
+    name: 'Grace Achieng',
+    role: 'Property Manager',
+    content: 'The dashboard gives me complete visibility across all units. Reporting has never been easier.',
+    rating: 5,
+  },
+];
+
+function AnimatedCounter({ value, suffix = '' }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  
+  return (
+    <span ref={ref} className="font-display text-4xl font-bold text-ink-950">
+      {isInView ? value : '0'}{suffix}
+    </span>
+  );
+}
+
 export default function LandingPage() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_rgba(230,173,46,0.12),_transparent_50%),linear-gradient(180deg,_#fdfcf8_0%,_#f7f5ef_100%)]">
-      {/* Header */}
-      <header className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink-900 text-gold-400 shadow-lg">
-            <Receipt className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="font-display text-xl font-bold text-ink-950">RentFlow</p>
-            <p className="text-xs text-ink-600">Smart Property Management</p>
-          </div>
+    <div className="min-h-screen">
+      {/* Hero Section - With Background Image Support */}
+      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+        {/* Background Layer */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: 'url(/images/img1.jpg)',
+            backgroundColor: '#0f172a' 
+          }}
+        >
+          {/* Overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink-950/90 via-ink-950/70 to-ink-950/50" />
         </div>
-        <nav className="hidden items-center gap-8 text-sm font-medium text-ink-700 md:flex">
-          <a href="#features" className="hover:text-ink-950 transition-colors">Features</a>
-          <a href="#how-it-works" className="hover:text-ink-950 transition-colors">How It Works</a>
-          <a href="#gallery" className="hover:text-ink-950 transition-colors">Gallery</a>
-        </nav>
-        <div className="flex items-center gap-3">
-          <Link to="/login">
-            <Button variant="ghost" size="sm">Sign In</Button>
-          </Link>
-          {isAuthenticated ? (
-            <Link to="/dashboard">
-              <Button variant="gold" size="sm">Dashboard</Button>
-            </Link>
-          ) : (
-            <Link to="/landlord-register">
-              <Button variant="gold" size="sm">Get Started</Button>
-            </Link>
-          )}
-        </div>
-      </header>
 
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <section className="pt-12 pb-20 lg:pt-20 lg:pb-28">
-          <div className="rounded-3xl border border-line-200 bg-white/80 p-8 shadow-2xl backdrop-blur-xl sm:p-10 lg:p-12">
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-3xl">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-gold-200 bg-gold-50 px-4 py-2 text-sm font-semibold text-gold-700"
-                >
-                  <Sparkles className="h-4 w-4" />
-                  Premium Rental Management
-                </motion.div>
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-gold-400/10 blur-3xl" />
+        <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-primary-400/10 blur-3xl" />
 
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  className="mt-6 font-display text-5xl font-bold leading-[1.1] tracking-tight text-ink-950 sm:text-6xl lg:text-7xl"
-                >
-                  Manage Rent
-                  <span className="block bg-gradient-to-r from-gold-500 to-gold-700 bg-clip-text text-transparent">
-                    With Clarity
-                  </span>
-                </motion.h1>
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between">
+            {/* Left Content */}
+            <div className="max-w-3xl">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10 px-4 py-2 text-sm font-semibold text-gold-400 backdrop-blur-sm"
+              >
+                <Sparkles className="h-4 w-4" />
+                Premium Rental Management
+              </motion.div>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="mt-6 max-w-2xl text-xl leading-relaxed text-ink-700"
-                >
-                  The professional platform for landlords who want clarity, order, and trust. 
-                  Manage properties, collect payments, and track your portfolio with ease.
-                </motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="mt-6 font-display text-5xl font-bold leading-[1.1] tracking-tight text-white sm:text-6xl lg:text-7xl"
+              >
+                Manage Rent
+                <span className="block bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text text-transparent">
+                  With Clarity
+                </span>
+              </motion.h1>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  className="mt-8 flex flex-wrap gap-4"
-                >
-                  <Link to="/landlord-register">
-                    <Button variant="gold" size="lg">
-                      Start Free Trial
-                      <ArrowRight className="h-5 w-5 ml-2" />
-                    </Button>
-                  </Link>
-                  <Link to="/tenant-login">
-                    <Button variant="secondary" size="lg">
-                      Tenant Portal
-                    </Button>
-                  </Link>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  className="mt-10 flex flex-wrap items-center gap-8 border-t border-line-200 pt-8"
-                >
-                  <div className="text-center">
-                    <p className="font-display text-3xl font-bold text-ink-950">84%</p>
-                    <p className="mt-1 text-sm text-ink-600">Occupancy Rate</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="font-display text-3xl font-bold text-ink-950">UGX 72M+</p>
-                    <p className="mt-1 text-sm text-ink-600">Collected</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="font-display text-3xl font-bold text-ink-950">500+</p>
-                    <p className="mt-1 text-sm text-ink-600">Active Properties</p>
-                  </div>
-                </motion.div>
-              </div>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mt-6 max-w-2xl text-xl leading-relaxed text-ink-200"
+              >
+                The professional platform for landlords who want clarity, order, and trust. 
+                Manage properties, collect payments, and track your portfolio with ease.
+              </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="w-full max-w-md rounded-2xl border border-line-200 bg-gradient-to-br from-gold-50 to-paper-50 p-6 shadow-lg"
+                className="mt-8 flex flex-wrap gap-4"
               >
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">What You Manage</p>
-                <div className="mt-5 space-y-4">
-                  <div className="flex items-start gap-3 rounded-xl border border-line-200 bg-white p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-ink-100 text-ink-700">
-                      <Home className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-ink-900">Properties & Units</p>
-                      <p className="mt-0.5 text-sm text-ink-600">Houses, apartments, rooms, and commercial spaces</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 rounded-xl border border-line-200 bg-white p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold-100 text-gold-700">
-                      <Users className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-ink-900">Tenants & Payments</p>
-                      <p className="mt-0.5 text-sm text-ink-600">Track rent, balances, and payment history</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 rounded-xl border border-line-200 bg-white p-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-ink-100 text-ink-700">
-                      <Camera className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-ink-900">Photo Galleries</p>
-                      <p className="mt-0.5 text-sm text-ink-600">Upload house and room photos for every listing</p>
-                    </div>
-                  </div>
+                <Link to="/landlord-register">
+                  <Button variant="gold" size="lg">
+                    Start Free Trial
+                    <ArrowRight className="h-5 w-5 ml-2" />
+                  </Button>
+                </Link>
+                <Link to="/tenant-login">
+                  <Button variant="secondary" size="lg" className="border-white/20 bg-white/10 text-white hover:bg-white/20">
+                    Tenant Portal
+                  </Button>
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="mt-12 flex flex-wrap items-center gap-8 border-t border-white/10 pt-8"
+              >
+                <div className="text-center">
+                  <AnimatedCounter value="84" suffix="%" />
+                  <p className="mt-1 text-sm text-ink-300">Occupancy Rate</p>
+                </div>
+                <div className="text-center">
+                  <AnimatedCounter value="72" suffix="M+" />
+                  <p className="mt-1 text-sm text-ink-300">UGX Collected</p>
+                </div>
+                <div className="text-center">
+                  <AnimatedCounter value="500" suffix="+" />
+                  <p className="mt-1 text-sm text-ink-300">Active Properties</p>
                 </div>
               </motion.div>
             </div>
-          </div>
-        </section>
 
+            {/* Right - Portfolio Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="w-full max-w-md rounded-2xl border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur-xl"
+            >
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-400">What You Manage</p>
+              <div className="mt-5 space-y-4">
+                <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white">
+                    <Home className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">Properties & Units</p>
+                    <p className="mt-0.5 text-sm text-ink-300">Houses, apartments, rooms, and commercial spaces</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold-400/20 text-gold-400">
+                    <Users className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">Tenants & Payments</p>
+                    <p className="mt-0.5 text-sm text-ink-300">Track rent, balances, and payment history</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white">
+                    <Camera className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white">Photo Galleries</p>
+                    <p className="mt-0.5 text-sm text-ink-300">Upload house and room photos for every listing</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Features Section */}
-        <section id="features" className="py-16">
+        <section id="features" className="py-20">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -249,7 +269,7 @@ export default function LandingPage() {
             </motion.p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {highlights.map((item, idx) => (
               <motion.div
                 key={item.title}
@@ -257,7 +277,7 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="group rounded-2xl border border-line-200 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="group rounded-2xl border border-line-200 bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer"
               >
                 <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-white shadow-lg`}>
                   <item.icon className="h-7 w-7" />
@@ -270,7 +290,7 @@ export default function LandingPage() {
         </section>
 
         {/* How It Works */}
-        <section id="how-it-works" className="py-16">
+        <section id="how-it-works" className="py-20">
           <div className="rounded-3xl border border-line-200 bg-white p-8 shadow-sm sm:p-10 lg:p-12">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <motion.p
@@ -300,9 +320,9 @@ export default function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.15 }}
-                  className="relative"
+                  className="relative text-center"
                 >
-                  <span className="font-display text-6xl font-bold text-ink-100">{step.number}</span>
+                  <span className="font-display text-6xl font-bold text-gold-100">{step.number}</span>
                   <h3 className="mt-3 font-display text-2xl font-semibold text-ink-950">{step.title}</h3>
                   <p className="mt-2 text-lg text-ink-700 leading-relaxed">{step.description}</p>
                 </motion.div>
@@ -312,7 +332,7 @@ export default function LandingPage() {
         </section>
 
         {/* Gallery Section */}
-        <section id="gallery" className="py-16">
+        <section id="gallery" className="py-20">
           <div className="rounded-3xl border border-line-200 bg-gradient-to-br from-ink-900 to-ink-800 p-8 shadow-xl sm:p-10 lg:p-12">
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
               <div>
@@ -369,27 +389,27 @@ export default function LandingPage() {
                 className="grid grid-cols-2 gap-4"
               >
                 <div className="space-y-4">
-                  <div className="rounded-xl bg-ink-800 p-6 border border-ink-700">
+                  <div className="rounded-xl bg-white/10 p-6 border border-white/10 backdrop-blur-sm">
                     <Camera className="h-8 w-8 text-gold-400" />
-                    <p className="mt-3 text-sm font-medium text-ink-300">Upload workflow</p>
-                    <p className="mt-1 text-sm text-ink-400">Drag, drop, and organize</p>
+                    <p className="mt-3 text-sm font-medium text-white">Upload workflow</p>
+                    <p className="mt-1 text-sm text-ink-300">Drag, drop, and organize</p>
                   </div>
-                  <div className="rounded-xl bg-ink-800 p-6 border border-ink-700">
+                  <div className="rounded-xl bg-white/10 p-6 border border-white/10 backdrop-blur-sm">
                     <Eye className="h-8 w-8 text-gold-400" />
-                    <p className="mt-3 text-sm font-medium text-ink-300">Tenant preview</p>
-                    <p className="mt-1 text-sm text-ink-400">Beautiful gallery view</p>
+                    <p className="mt-3 text-sm font-medium text-white">Tenant preview</p>
+                    <p className="mt-1 text-sm text-ink-300">Beautiful gallery view</p>
                   </div>
                 </div>
                 <div className="mt-6 space-y-4">
-                  <div className="rounded-xl bg-ink-800 p-6 border border-ink-700">
+                  <div className="rounded-xl bg-white/10 p-6 border border-white/10 backdrop-blur-sm">
                     <Star className="h-8 w-8 text-gold-400" />
-                    <p className="mt-3 text-sm font-medium text-ink-300">Featured listings</p>
-                    <p className="mt-1 text-sm text-ink-400">Highlight best properties</p>
+                    <p className="mt-3 text-sm font-medium text-white">Featured listings</p>
+                    <p className="mt-1 text-sm text-ink-300">Highlight best properties</p>
                   </div>
-                  <div className="rounded-xl bg-ink-800 p-6 border border-ink-700">
+                  <div className="rounded-xl bg-white/10 p-6 border border-white/10 backdrop-blur-sm">
                     <Globe className="h-8 w-8 text-gold-400" />
-                    <p className="mt-3 text-sm font-medium text-ink-300">Share anywhere</p>
-                    <p className="mt-1 text-sm text-ink-400">Social media ready</p>
+                    <p className="mt-3 text-sm font-medium text-white">Share anywhere</p>
+                    <p className="mt-1 text-sm text-ink-300">Social media ready</p>
                   </div>
                 </div>
               </motion.div>
@@ -398,7 +418,7 @@ export default function LandingPage() {
         </section>
 
         {/* Full Features Grid */}
-        <section className="py-16">
+        <section className="py-20">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <motion.h2
               initial={{ opacity: 0, y: 10 }}
@@ -418,7 +438,7 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="rounded-2xl border border-line-200 bg-white p-6 shadow-sm hover:shadow-lg transition-all duration-300"
+                className="rounded-2xl border border-line-200 bg-white p-6 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-50 text-gold-600">
                   <item.icon className="h-6 w-6" />
@@ -430,8 +450,56 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Testimonials */}
+        <section className="py-20">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600"
+            >
+              Testimonials
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="mt-3 font-display text-4xl font-bold text-ink-950 sm:text-5xl"
+            >
+              Loved by Landlords & Tenants
+            </motion.h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {testimonials.map((testimonial, idx) => (
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="rounded-2xl border border-line-200 bg-white p-6 shadow-sm"
+              >
+                <Quote className="h-8 w-8 text-gold-200" />
+                <p className="mt-4 text-lg text-ink-700 leading-relaxed">{testimonial.content}</p>
+                <div className="mt-6 flex items-center gap-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-gold-400 text-gold-400" />
+                  ))}
+                </div>
+                <div className="mt-4 border-t border-line-200 pt-4">
+                  <p className="font-semibold text-ink-950">{testimonial.name}</p>
+                  <p className="text-sm text-ink-600">{testimonial.role}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* CTA Section */}
-        <section className="py-16 pb-20">
+        <section className="py-20 pb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -459,15 +527,15 @@ export default function LandingPage() {
             </div>
           </motion.div>
         </section>
-      </main>
+      </div>
 
       {/* Footer */}
       <footer className="border-t border-line-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-ink-900 text-gold-400">
-                <Receipt className="h-5 w-5" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg overflow-hidden">
+                <img src="/images/img2.jpeg" alt="RentFlow Logo" className="h-full w-full object-cover" />
               </div>
               <div>
                 <p className="font-display text-lg font-bold text-ink-950">RentFlow</p>

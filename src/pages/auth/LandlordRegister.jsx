@@ -1,10 +1,17 @@
 import { motion } from 'framer-motion';
-import { Mail, Lock, Receipt, UserRound, Phone, ArrowRight } from 'lucide-react';
+import { Mail, Lock, Receipt, UserRound, Phone, ArrowRight, ShieldCheck, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import Input from '../../components/forms/Input.jsx';
 import Button from '../../components/buttons/Button.jsx';
+
+const benefits = [
+  'Manage unlimited properties',
+  'Track tenant payments',
+  'Photo listings for units',
+  'Detailed financial reports',
+];
 
 export default function LandlordRegister() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', password: '' });
@@ -44,19 +51,32 @@ export default function LandlordRegister() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full max-w-xl"
+      className="w-full max-w-md mx-auto"
     >
-      <div className="rounded-3xl border border-line-200 bg-white p-8 shadow-2xl sm:p-10 lg:p-12">
-        <div className="mb-8 flex flex-col items-center text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-ink-900 text-gold-400 shadow-lg">
-            <Receipt className="h-7 w-7" />
+      <div className="rounded-3xl border border-line-200 bg-white p-6 shadow-2xl sm:p-8">
+        {/* Header */}
+        <div className="mb-6 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-ink-200 bg-ink-50 px-4 py-1.5 text-sm font-semibold text-ink-700 mb-4">
+            <Receipt className="h-4 w-4" />
+            Landlord Portal
           </div>
-          <h1 className="font-display text-4xl font-bold text-ink-950">Create Landlord Account</h1>
-          <p className="mt-3 text-lg text-ink-700">
-            Set up your portfolio and begin operating with confidence.
-          </p>
+          <h1 className="font-display text-3xl font-bold text-ink-950">Create Account</h1>
+          <p className="mt-2 text-ink-700">Start managing your properties</p>
         </div>
 
+        {/* Benefits */}
+        <div className="mb-6 rounded-xl bg-primary-50 p-4">
+          <div className="grid grid-cols-2 gap-2">
+            {benefits.map((benefit) => (
+              <div key={benefit} className="flex items-center gap-2 text-sm text-ink-700">
+                <CheckCircle className="h-4 w-4 text-primary-600 shrink-0" />
+                {benefit}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Error */}
         {error && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -67,17 +87,19 @@ export default function LandlordRegister() {
           </motion.div>
         )}
 
+        {/* Success */}
         {success && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700"
           >
-            Account created successfully! Redirecting to sign in...
+            Account created! Redirecting to sign in...
           </motion.div>
         )}
 
-        <form className="space-y-5" onSubmit={handleSubmit}>
+        {/* Form */}
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <Input
             label="Full Name"
             icon={UserRound}
@@ -110,23 +132,42 @@ export default function LandlordRegister() {
             label="Password"
             type="password"
             icon={Lock}
-            placeholder="Create a password (min. 8 characters)"
+            placeholder="Min. 8 characters"
             value={form.password}
             onChange={handleChange('password')}
             required
           />
 
-          <Button fullWidth variant="gold" size="lg" type="submit" disabled={loading || success}>
-            {loading ? 'Creating Account...' : success ? 'Account Created!' : 'Create Account'}
+          <Button fullWidth variant="primary" size="lg" type="submit" disabled={loading || success}>
+            {loading ? 'Creating...' : success ? 'Created!' : 'Create Account'}
           </Button>
         </form>
 
-        <div className="mt-6 text-center text-sm">
-          <span className="text-ink-700">Already have an account? </span>
-          <Link to="/landlord-login" className="font-semibold text-gold-600 hover:text-gold-700 transition-colors">
+        {/* Divider */}
+        <div className="mt-6 flex items-center gap-4">
+          <div className="flex-1 h-px bg-line-200" />
+          <span className="text-xs text-ink-500">or</span>
+          <div className="flex-1 h-px bg-line-200" />
+        </div>
+
+        {/* Links */}
+        <div className="mt-6 text-center">
+          <span className="text-sm text-ink-700">Already have an account? </span>
+          <Link to="/landlord-login" className="text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors cursor-pointer">
             Sign In
           </Link>
         </div>
+        <div className="mt-3 text-center">
+          <Link to="/login" className="text-sm font-semibold text-ink-600 hover:text-ink-900 transition-colors cursor-pointer">
+            ← Choose a different portal
+          </Link>
+        </div>
+      </div>
+
+      {/* Trust */}
+      <div className="mt-6 flex items-center justify-center gap-2 text-xs text-ink-500">
+        <ShieldCheck className="h-4 w-4" />
+        <span>Your information is secure</span>
       </div>
     </motion.div>
   );

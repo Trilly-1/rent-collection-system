@@ -1,71 +1,118 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Building2, Users, Receipt } from 'lucide-react';
+import { ArrowRight, Building2, Users, Receipt, ShieldCheck, Lock, Zap, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const options = [
+const portals = [
   {
     title: 'Landlord Portal',
     description: 'Manage properties, units, tenants, and rent collection in one premium workspace.',
-    to: '/landlord-login',
+    loginTo: '/landlord-login',
+    registerTo: '/landlord-register',
     icon: Building2,
-    gradient: 'from-ink-600 to-ink-800',
+    gradient: 'from-ink-700 to-ink-900',
+    bgGradient: 'from-ink-50 to-white',
+    features: ['Property management', 'Tenant tracking', 'Payment collection', 'Photo listings'],
   },
   {
     title: 'Tenant Portal',
     description: 'View rent status, payments, and lease details in a simple private dashboard.',
-    to: '/tenant-login',
+    loginTo: '/tenant-login',
+    registerTo: '/tenant-register',
     icon: Users,
-    gradient: 'from-gold-500 to-gold-700',
+    gradient: 'from-primary-600 to-primary-700',
+    bgGradient: 'from-primary-50 to-white',
+    features: ['Payment history', 'Lease documents', 'Balance tracking', 'Secure access'],
   },
 ];
 
 export default function Login() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full max-w-xl"
-    >
-      <div className="rounded-3xl border border-line-200 bg-white p-8 shadow-2xl sm:p-10 lg:p-12">
-        <div className="mb-8 flex flex-col items-center text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-ink-900 text-gold-400 shadow-lg">
-            <Receipt className="h-7 w-7" />
-          </div>
-          <h1 className="font-display text-4xl font-bold text-ink-950">Choose Your Access</h1>
-          <p className="mt-3 text-lg text-ink-700">
-            Select your role to access the appropriate dashboard.
-          </p>
-        </div>
+    <div className="w-full max-w-4xl mx-auto">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-10"
+      >
+        
+        <h1 className="font-display text-4xl font-bold text-ink-950 sm:text-5xl">
+          Choose Your Portal
+        </h1>
+        <p className="mt-4 text-lg text-ink-700 max-w-2xl mx-auto">
+          Select your role to access the appropriate dashboard
+        </p>
+      </motion.div>
 
-        <div className="space-y-4">
-          {options.map(({ title, description, to, icon: Icon, gradient }, idx) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + idx * 0.1 }}
-            >
-              <Link to={to} className="block group">
-                <div className="flex items-center justify-between rounded-2xl border border-line-200 bg-paper-50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold-300 hover:bg-white hover:shadow-xl">
-                  <div className="flex items-start gap-4">
-                    <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${gradient} text-white shadow-lg`}>
-                      <Icon className="h-7 w-7" />
-                    </div>
-                    <div>
-                      <p className="font-display text-xl font-semibold text-ink-950">{title}</p>
-                      <p className="mt-1 text-base text-ink-700">{description}</p>
-                    </div>
-                  </div>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-paper-100 text-ink-700 group-hover:bg-gold-100 group-hover:text-gold-700 transition-colors">
-                    <ArrowRight className="h-5 w-5" />
-                  </div>
+      {/* Portal Cards */}
+      <div className="grid gap-6 md:grid-cols-2">
+        {portals.map(({ title, description, loginTo, registerTo, icon: Icon, gradient, bgGradient, features }, idx) => (
+          <motion.div
+            key={title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 + idx * 0.1 }}
+            className={`relative overflow-hidden rounded-3xl border-2 border-line-200 bg-gradient-to-br ${bgGradient} p-8 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-gold-400 hover:shadow-2xl cursor-pointer`}
+          >
+            {/* Top accent */}
+            <div className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${gradient}`} />
+
+            {/* Icon */}
+            <div className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-xl mb-6`}>
+              <Icon className="h-8 w-8" />
+            </div>
+
+            {/* Content */}
+            <h2 className="font-display text-2xl font-bold text-ink-950">{title}</h2>
+            <p className="mt-2 text-ink-700 leading-relaxed">{description}</p>
+
+            {/* Features */}
+            <div className="mt-6 grid grid-cols-2 gap-2">
+              {features.map((feature) => (
+                <div key={feature} className="flex items-center gap-2 text-sm text-ink-600">
+                  <CheckCircle className="h-4 w-4 text-primary-500 shrink-0" />
+                  {feature}
+                </div>
+              ))}
+            </div>
+
+            {/* Actions */}
+            <div className="mt-8 space-y-3">
+              <Link to={loginTo} className="block">
+                <div className={`flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r ${gradient} px-6 py-3.5 text-white font-semibold shadow-lg transition-all duration-200 hover:shadow-xl`}>
+                  Sign In
+                  <ArrowRight className="h-4 w-4" />
                 </div>
               </Link>
-            </motion.div>
-          ))}
-        </div>
+              <Link to={registerTo} className="block">
+                <div className="flex items-center justify-center gap-2 rounded-xl border-2 border-line-300 bg-white px-6 py-3.5 text-ink-700 font-semibold transition-all duration-200 hover:border-gold-400 hover:text-ink-950">
+                  Create Account
+                </div>
+              </Link>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </motion.div>
+
+      {/* Trust Indicators */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="mt-10 flex items-center justify-center gap-8 text-sm text-ink-500"
+      >
+        <div className="flex items-center gap-2">
+          <Lock className="h-4 w-4" />
+          <span>256-bit Encryption</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="h-4 w-4" />
+          <span>Bank-Level Security</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Zap className="h-4 w-4" />
+          <span>Instant Access</span>
+        </div>
+      </motion.div>
+    </div>
   );
 }

@@ -23,8 +23,8 @@ export default function PublicLayout({ children }) {
       <header className="sticky top-0 z-50 border-b border-line-200 bg-paper-0/90 backdrop-blur-xl">
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink-900 text-gold-400 shadow-lg">
-              <Receipt className="h-6 w-6" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl overflow-hidden shadow-lg">
+              <img src="/images/img2.jpeg" alt="RentFlow Logo" className="h-full w-full object-cover" />
             </div>
             <div>
               <p className="font-display text-xl font-bold text-ink-950">RentFlow</p>
@@ -38,9 +38,11 @@ export default function PublicLayout({ children }) {
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  isActive
-                    ? 'text-gold-600 font-semibold'
-                    : 'text-ink-700 hover:text-ink-950 transition-colors'
+                  `relative py-1 text-sm font-medium transition-colors duration-200 cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gold-500 after:transition-all after:duration-300 hover:after:w-full ${
+                    isActive
+                      ? 'text-gold-600 after:w-full'
+                      : 'text-ink-700 hover:text-ink-950'
+                  }`
                 }
               >
                 {item.label}

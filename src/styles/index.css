@@ -1,57 +1,93 @@
 @import "tailwindcss";
 
 @theme {
-  /* Color tokens — "Ledger Gold" palette: deep emerald ink, warm paper, ochre gold accent */
-  --color-ink-950: #0c2018;
-  --color-ink-900: #123528;
-  --color-ink-800: #1a4636;
-  --color-ink-700: #235943;
-  --color-ink-600: #2f7057;
-  --color-ink-500: #3b876b;
-  --color-ink-400: #4fa68a;
-  --color-ink-300: #6fc7a8;
-  --color-ink-200: #a8e0c8;
-  --color-ink-100: #d3efe5;
-  --color-ink-50: #eaf7f2;
+  /* 
+   * Real Estate SaaS Color Palette
+   * Based on UI/UX Pro Max skill recommendations for Real Estate
+   * Primary: #0F766E (Trust Teal) - conveys trust, stability, professionalism
+   * Secondary: #14B8A6 - lighter teal for accents
+   * CTA: #0369A1 (Sky Blue) - action-oriented, stands out
+   * Background: #F0FDFA - clean, airy feel
+   * Text: #134E4A - high contrast for readability
+   * Border: #99F6E4 - subtle, visible borders
+   */
+  
+  /* Primary - Trust Teal (Real Estate) */
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
 
-  --color-gold-50: #fffdf5;
+  /* Gold Accent - Warm ochre for premium feel */
+  --color-gold-50: #fffbeb;
   --color-gold-100: #fef3c7;
   --color-gold-200: #fde68a;
   --color-gold-300: #fcd34d;
-  --color-gold-400: #f59e0b;
-  --color-gold-500: #e6ad2e;
-  --color-gold-600: #d49425;
-  --color-gold-700: #b4731a;
-  --color-gold-800: #925714;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+  --color-gold-700: #b45309;
+  --color-gold-800: #92400e;
 
-  --color-clay-50: #fdf8f6;
-  --color-clay-100: #fef3f0;
-  --color-clay-200: #fde8e0;
-  --color-clay-300: #fbc9b7;
-  --color-clay-400: #f8a88c;
-  --color-clay-500: #f4835d;
-  --color-clay-600: #ec5c2e;
-  --color-clay-700: #c83e1a;
-  --color-clay-800: #a03015;
+  /* Ink - Deep slate for text and dark elements */
+  --color-ink-950: #0f172a;
+  --color-ink-900: #1e293b;
+  --color-ink-800: #334155;
+  --color-ink-700: #475569;
+  --color-ink-600: #64748b;
+  --color-ink-500: #94a3b8;
+  --color-ink-400: #cbd5e1;
+  --color-ink-300: #e2e8f0;
+  --color-ink-200: #f1f5f9;
+  --color-ink-100: #f8fafc;
 
-  --color-paper-0: #fdfcf8;
-  --color-paper-50: #f7f5ef;
-  --color-paper-100: #f0ebe1;
-  --color-paper-200: #e5ddd0;
-  --color-paper-300: #d4c9b3;
-  --color-line-100: #efe9dd;
-  --color-line-200: #e2dcc9;
-  --color-line-300: #d3cbb2;
-  --color-line-400: #b8ae90;
+  /* Clay - Error/danger states */
+  --color-clay-50: #fef2f2;
+  --color-clay-100: #fee2e2;
+  --color-clay-200: #fecaca;
+  --color-clay-300: #fca5a5;
+  --color-clay-400: #f87171;
+  --color-clay-500: #ef4444;
+  --color-clay-600: #dc2626;
+  --color-clay-700: #b91c1c;
+
+  /* Success - Green for positive states */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+
+  /* Paper - Backgrounds */
+  --color-paper-0: #ffffff;
+  --color-paper-50: #f8fafc;
+  --color-paper-100: #f1f5f9;
+  --color-paper-200: #e2e8f0;
+  --color-paper-300: #cbd5e1;
+
+  /* Line - Borders */
+  --color-line-100: #f1f5f9;
+  --color-line-200: #e2e8f0;
+  --color-line-300: #cbd5e1;
+  --color-line-400: #94a3b8;
 
   --color-white: #ffffff;
   --color-black: #000000;
 
-  --font-display: "Fraunces", "Georgia", serif;
+  /* Typography - Professional SaaS pairing */
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --radius-xs: 4px;
+  /* Border Radius - Consistent, modern */
+  --radius-xs: 6px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -59,24 +95,33 @@
   --radius-2xl: 32px;
   --radius-full: 9999px;
 
-  --shadow-xs: 0 1px 2px 0 rgb(12 32 24 / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(12 32 24 / 0.1), 0 1px 2px -1px rgb(12 32 24 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(12 32 24 / 0.1), 0 2px 4px -2px rgb(12 32 24 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(12 32 24 / 0.1), 0 4px 6px -4px rgb(12 32 24 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(12 32 24 / 0.1), 0 8px 10px -6px rgb(12 32 24 / 0.1);
-  --shadow-2xl: 0 25px 50px -12px rgb(12 32 24 / 0.25);
-  --shadow-inner: inset 0 2px 4px 0 rgb(12 32 24 / 0.05);
+  /* Shadows - Subtle depth */
+  --shadow-xs: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(15 23 42 / 0.08), 0 1px 2px -1px rgb(15 23 42 / 0.08);
+  --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 0.08), 0 4px 6px -4px rgb(15 23 42 / 0.04);
+  --shadow-xl: 0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.06);
+  --shadow-2xl: 0 25px 50px -12px rgb(15 23 42 / 0.2);
+  --shadow-inner: inset 0 2px 4px 0 rgb(15 23 42 / 0.05);
 
-  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  /* Transitions - UX Pro Max: 150-300ms */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 350ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
 }
 
-/* Root font size - larger base for better readability */
+/* 
+ * UX Pro Max Guidelines Applied:
+ * - Base font: 16px (standard for readability)
+ * - Line height: 1.6 (optimal for body text)
+ * - Text contrast: 4.5:1 minimum (WCAG AA)
+ * - Transitions: 200ms (smooth, not sluggish)
+ */
+
 html {
-  font-size: 18px;
+  font-size: 16px;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -84,11 +129,41 @@ html {
 
 body {
   background-color: var(--color-paper-50);
-  color: var(--color-ink-950);
-  line-height: 1.65;
+  color: var(--color-ink-900);
+  line-height: 1.6;
 }
 
-/* Perforated "receipt tear" divider — signature motif */
+/* 
+ * UX Pro Max: Cursor Pointer Rule
+ * All interactive elements must have cursor-pointer
+ */
+a, button, [role="button"], input[type="submit"], input[type="button"], label[for], .cursor-pointer {
+  cursor: pointer;
+}
+
+/* 
+ * UX Pro Max: Focus Visible Rule
+ * Keyboard navigation must be visible
+ */
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* 
+ * UX Pro Max: Smooth Transitions
+ * All interactive state changes should be 150-300ms
+ */
+button, a, input, select, textarea {
+  transition: color var(--duration-fast) ease,
+              background-color var(--duration-fast) ease,
+              border-color var(--duration-fast) ease,
+              box-shadow var(--duration-fast) ease,
+              opacity var(--duration-fast) ease;
+}
+
+/* Perforated "receipt tear" divider */
 .tear-divider {
   position: relative;
   border: none;
@@ -104,16 +179,13 @@ body {
   background-repeat: repeat-x;
 }
 
-.tear-divider-thick {
-  height: 2px;
-  background-size: 16px 2px;
-}
-
 /* Typography utilities */
 .stamp {
   font-family: var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .font-display {
@@ -142,159 +214,78 @@ body {
   background: transparent;
 }
 
-/* Focus visible styles */
-.focus-ring:focus-visible {
-  outline: none;
-  ring: 2px;
-  ring-color: var(--color-gold-400);
-  ring-offset: 2px;
-  ring-offset-color: var(--color-paper-0);
-}
-
-/* Glass card effect */
+/* 
+ * UX Pro Max: Glass Card
+ * Light mode: bg-white/80 or higher opacity
+ */
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-white);
+  border: 1px solid var(--color-line-200);
   box-shadow: var(--shadow-xl);
 }
 
-/* Gradient text */
+/* 
+ * UX Pro Max: Gradient Text
+ * Use sparingly for emphasis
+ */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-ink-950) 0%, var(--color-gold-600) 100%);
+  background: linear-gradient(135deg, var(--color-primary-700) 0%, var(--color-primary-500) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gradient-gold {
-  background: linear-gradient(135deg, var(--color-gold-500) 0%, var(--color-gold-700) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Animated gradient border */
-.animated-border {
-  position: relative;
-  background: var(--color-white);
-  border-radius: var(--radius-xl);
-}
-.animated-border::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: calc(var(--radius-xl) + 2px);
-  background: linear-gradient(135deg, var(--color-gold-400), var(--color-ink-500), var(--color-gold-400));
-  background-size: 200% 200%;
-  animation: border-flow 3s ease infinite;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity var(--duration-normal);
-}
-.animated-border:hover::before {
-  opacity: 1;
-}
-@keyframes border-flow {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* Entrance animations */
+/* Entrance animations - respecting prefers-reduced-motion */
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes fade-in-down {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
+
 @keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-@keyframes slide-in-left {
-  from { opacity: 0; transform: translateX(-20px); }
+  from { opacity: 0; transform: translateX(16px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 .animate-fade-in-up { animation: fade-in-up var(--duration-slow) var(--ease-out-expo) forwards; }
-.animate-fade-in-down { animation: fade-in-down var(--duration-slow) var(--ease-out-expo) forwards; }
 .animate-fade-in { animation: fade-in var(--duration-normal) var(--ease-out-expo) forwards; }
-.animate-scale-in { animation: scale-in var(--duration-normal) var(--ease-spring) forwards; }
 .animate-slide-in-right { animation: slide-in-right var(--duration-slow) var(--ease-out-expo) forwards; }
-.animate-slide-in-left { animation: slide-in-left var(--duration-slow) var(--ease-out-expo) forwards; }
 
 /* Stagger delays */
 .delay-1 { animation-delay: 100ms; }
 .delay-2 { animation-delay: 200ms; }
 .delay-3 { animation-delay: 300ms; }
-.delay-4 { animation-delay: 400ms; }
-.delay-5 { animation-delay: 500ms; }
-.delay-6 { animation-delay: 600ms; }
 
-/* Hover lift effect */
-.hover-lift {
-  transition: transform var(--duration-normal) var(--ease-out-expo), box-shadow var(--duration-normal) var(--ease-out-expo);
-}
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
-}
-
-/* Button press effect */
-.btn-press:active {
-  transform: scale(0.98);
-}
-
-/* Reduced motion */
+/* 
+ * UX Pro Max: Reduced Motion
+ * Respect user preferences
+ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 /* Image gallery grid */
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
 }
 
-/* Toast customizations */
+/* Toast customizations - accessible contrast */
 :root {
   --toast-bg: var(--color-ink-900);
   --toast-color: var(--color-paper-0);
-  --toast-success-bg: var(--color-ink-700);
+  --toast-success-bg: var(--color-success-600);
   --toast-error-bg: var(--color-clay-600);
-}
-
-/* Page transitions */
-.page-enter {
-  opacity: 0;
-  transform: translateY(16px);
-}
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity var(--duration-slow) var(--ease-out-expo), transform var(--duration-slow) var(--ease-out-expo);
-}
-.page-exit {
-  opacity: 1;
-}
-.page-exit-active {
-  opacity: 0;
-  transform: translateY(-16px);
-  transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo);
 }
